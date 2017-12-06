@@ -4,7 +4,7 @@
 PACKAGES=(screen unix2dos isomd5sum samba winbind samba-winbind authconfig)
 SAMBADIR="/etc/samba"
 NASDIR="/nas/scripts/config/ingest/"
-
+BUILDTHOST=$(echo $HOSTNAME | cut -d"." -f1)
 
 if [[ $EUID -ne 0 ]]; then
 	echo "This script must be run as root." 
@@ -27,7 +27,7 @@ else
     0 0\n#SAN5             /media/SAN5      cvfs    auto,cachebufsize=2048k
     0 0\n#SAN6            /media/SAN6     cvfs    rw,cachebufsize=2048k                            0 0\n" >>/etc/fstab
 	for SAN in $(cat /etc/fstab | grep "SAN" | awk '{print $1}' | cut -d"#" -f2); do
-		if [ -d "/media$SAN" ]; then
+		if [ -d "/media/$SAN" ]; then
 			:
 		else
 			mkdir "/media/$SAN"
@@ -56,8 +56,7 @@ fi
 
 if [ $(mount | grep -q "nas") ] && [ $(mount | grep -q "das") ]; then
 	cp "$NASDIR/sudoers_original" /etc/sudoers
-	BUILDTHOST=$(echo $HOSTNAME | cut -d"." -f1)
-	sed -i "s/ingesthostname/$INGESTHOST/g" /etc/sudoers
+	sed -i "s/ingesthostname/$BUILDHOST/g" /etc/sudoers
 else
 	echo "Nas and Das are not mounted check manually."
 	exit 1
