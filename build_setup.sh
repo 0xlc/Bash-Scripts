@@ -3,7 +3,7 @@
 
 PACKAGES=(screen unix2dos isomd5sum samba winbind samba-winbind authconfig)
 SAMBADIR="/etc/samba"
-NASDIR="/nas/scripts/config/ingest/"
+NASDIR="/nas/scripts/config/build/"
 BUILDTHOST=$(echo $HOSTNAME | cut -d"." -f1)
 
 if [[ $EUID -ne 0 ]]; then
