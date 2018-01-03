@@ -1,5 +1,6 @@
 #!/bin/bash
 
+
 check_uid () {
    if [[ $EUID -ne 0 ]]; then
        echo "This script must be run as root"
