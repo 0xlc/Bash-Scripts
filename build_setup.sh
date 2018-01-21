@@ -1,5 +1,4 @@
 #!/bin/bash
-# Automating building v0.1 05-12-17
 
 PACKAGES=(screen unix2dos isomd5sum samba winbind samba-winbind authconfig)
 SAMBADIR="/etc/samba"
